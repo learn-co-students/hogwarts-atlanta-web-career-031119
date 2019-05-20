@@ -19,25 +19,26 @@ export default class HogContainer extends Component {
         })
     }
 
-    filterGreasy =()=> {
-        if (this.state.greasy == "Non-Greasy") {
-            return this.state.hogs.filter( hog => { 
+    filterGreasy =(hogs)=> {
+        if (this.state.greasy === "Non-Greasy") {
+            return hogs.filter( hog => { 
                 if (!hog.greased)
                 return true
             })
-        } else if (this.state.greasy == "Greasy") {
-            return this.state.hogs.filter( hog => {
+        } else if (this.state.greasy === "Greasy") {
+            return hogs.filter( hog => {
                 if (hog.greased)
                 return true
             })
         } else {
-            return this.state.hogs
+            return hogs
         }
     }
 
     sortHogs =()=> {
+        let hogSort = this.state.hogs.slice()
         if (this.state.sort === "Name") {
-            return this.state.hogs.sort((a, b) => {
+            return hogSort.sort((a, b) => {
             let nameA = a.name.toUpperCase();
             let nameB = b.name.toUpperCase();
             if (nameA < nameB) {
@@ -49,7 +50,7 @@ export default class HogContainer extends Component {
                 return 0
         })
         } else if (this.state.sort === "Weight") {
-        return this.state.hogs.sort((a, b)=>{
+        return hogSort.sort((a, b)=>{
             let key = "weight"
             return a[key] - b[key];
         })
